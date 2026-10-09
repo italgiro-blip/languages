@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traductores B1 — Italgiro</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --panel: #1e293b;
+        --border: #334155;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #3b82f6;
+        --accent-2: #8b5cf6;
+        --b1: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    header h1 {
+        font-size: 36px;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    header p {
+        color: var(--muted);
+        font-size: 15px;
+    }
+    .buscador {
+        width: 100%;
+        max-width: 400px;
+        padding: 12px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: var(--text);
+        font-size: 14px;
+        margin-bottom: 30px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .buscador:focus { border-color: var(--accent); }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1000px;
+    }
+    .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+    }
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(59,130,246,0.15);
+    }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .bandera {
+        width: 56px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nivel {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: rgba(16,185,129,0.15);
+        color: var(--b1);
+        border: 1px solid rgba(16,185,129,0.3);
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+    .nivel::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--b1);
+    }
+    .card h2 { font-size: 18px; font-weight: 600; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .card .arrow {
+        margin-top: auto;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 600;
+    }
+    footer {
+        margin-top: 60px;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>🌍 Traductores B1</h1>
+    <p>Herramientas de traducción y pronunciación · Nivel B1</p>
+</header>
+
+<input type="search" class="buscador" id="buscador" placeholder="🔍 Buscar idioma...">
+
+<div class="grid" id="grid">
+
+    <!-- PORTUGUÉS -->
+    <a href="portugues/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/pt.png"
+                 srcset="https://flagcdn.com/w320/pt.png 2x"
+                 alt="Bandera de Portugal">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Portugués</h2>
+        <p>Traducción, pronunciación y gramática en portugués · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+    <!-- RUSO TEXTO A VOZ -->
+    <a href="ruso-voz-txt/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/ru.png"
+                 srcset="https://flagcdn.com/w320/ru.png 2x"
+                 alt="Bandera de Rusia">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Ruso — Texto a Voz</h2>
+        <p>Convierte texto en ruso a voz · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+    <!-- RUSO VOZ -->
+    <a href="ruso-voz/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/ru.png"
+                 srcset="https://flagcdn.com/w320/ru.png 2x"
+                 alt="Bandera de Rusia">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Ruso — Voz</h2>
+        <p>Traducción por voz ruso ↔ español · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+    <!-- ITALIANO -->
+    <a href="italiano/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/it.png"
+                 srcset="https://flagcdn.com/w320/it.png 2x"
+                 alt="Bandera de Italia">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Italiano</h2>
+        <p>Traducción, pronunciación y gramática en italiano · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+    <!-- INGLÉS -->
+    <a href="ingles/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/gb.png"
+                 srcset="https://flagcdn.com/w320/gb.png 2x"
+                 alt="Bandera del Reino Unido">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Inglés</h2>
+        <p>Traducción inteligente, pronunciación y análisis gramatical · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+    <!-- ALEMÁN SUIZO -->
+    <a href="aleman-suizo/" class="card">
+        <div class="card-top">
+            <img class="bandera"
+                 src="https://flagcdn.com/w160/ch.png"
+                 srcset="https://flagcdn.com/w320/ch.png 2x"
+                 alt="Bandera de Suiza">
+            <span class="nivel">B1</span>
+        </div>
+        <h2>Alemán Suizo</h2>
+        <p>Traducción y pronunciación en alemán suizo · Nivel B1</p>
+        <span class="arrow">Abrir →</span>
+    </a>
+
+</div>
+
+<footer>
+    © 2026 · <a href="https://github.com/italgiro-blip">italgiro-blip</a>
+</footer>
+
+<script>
+document.getElementById('buscador').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.card').forEach(c => {
+        const texto = c.textContent.toLowerCase();
+        c.style.display = texto.includes(q) ? '' : 'none';
+    });
+});
+</script>
+
+</body>
+</html>
