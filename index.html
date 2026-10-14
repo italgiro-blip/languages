@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaHub | Traductor Multilingüe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES DE COLOR ===== */
+        :root {
+            --primary: #4A6CF7;
+            --primary-dark: #2B44B8;
+            --accent: #FF4D6D;
+            --accent-2: #FFB703;
+            --white: #FFFFFF;
+            --dark: #1a1a2e;
+            --gray: #f0f0f5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100vh;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #4A6CF7 70%, #FF4D6D 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 18s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== ORBES DECORATIVOS ===== */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.45;
+            z-index: 1;
+            animation: float 10s ease-in-out infinite;
+        }
+        .orb-1 { width: 380px; height: 380px; background: var(--primary); top: -100px; left: -100px; }
+        .orb-2 { width: 420px; height: 420px; background: var(--accent); bottom: -140px; right: -120px; animation-delay: 2s; }
+        .orb-3 { width: 260px; height: 260px; background: var(--accent-2); top: 55%; left: 45%; transform: translate(-50%, -50%); animation-delay: 4s; opacity: 0.25; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%      { transform: translate(35px, -35px) scale(1.1); }
+        }
+
+        /* ===== PATRÓN DE FONDO ===== */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(74,108,247,0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(255,77,109,0.18) 0%, transparent 45%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== HEADER CON LOGOS ===== */
+        .header-logos {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            z-index: 10;
+            animation: fadeDown 1s ease-out;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 140px;
+            max-width: 32vw;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35)) brightness(1.05);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.08) rotate(-2deg);
+            filter: drop-shadow(0 12px 25px rgba(255,77,109,0.5)) brightness(1.1);
+        }
+
+        /* ===== CONTENIDO CENTRAL ===== */
+        .main-content {
+            text-align: center;
+            z-index: 5;
+            padding: 20px;
+            animation: fadeUp 1.2s ease-out 0.3s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: clamp(2.2rem, 5.5vw, 4rem);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-shadow:
+                0 0 25px rgba(74,108,247,0.6),
+                0 6px 20px rgba(0,0,0,0.35);
+        }
+        .title span {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+        }
+
+        /* ===== BANDERAS / IDIOMAS ===== */
+        .languages {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 45px;
+            animation: fadeUp 1.2s ease-out 0.5s both;
+        }
+
+        .lang {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.18);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .lang:hover {
+            transform: translateY(-6px) scale(1.05);
+            background: rgba(255,255,255,0.16);
+            border-color: rgba(255,255,255,0.45);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+        }
+
+        .lang .flag {
+            font-size: 1.9rem;
+            line-height: 1;
+        }
+        .lang .name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .lang .hello {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.65);
+            font-style: italic;
+        }
+
+        /* ===== BOTÓN PRINCIPAL ===== */
+        .btn-container {
+            position: relative;
+            display: inline-block;
+            animation: fadeUp 1.2s ease-out 0.7s both;
+        }
+
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 22px 55px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: 3px solid rgba(255,255,255,0.85);
+            border-radius: 60px;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            box-shadow:
+                0 10px 30px rgba(74,108,247,0.5),
+                0 0 0 0 rgba(255,255,255,0.7);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-main:hover::before {
+            left: 100%;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow:
+                0 15px 40px rgba(255,77,109,0.6),
+                0 0 0 4px rgba(255,255,255,0.35);
+        }
+        .btn-main:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-main svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s ease;
+        }
+        .btn-main:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* ===== ONDAS DEL BOTÓN ===== */
+        .btn-container::before,
+        .btn-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 60px;
+            background-color: rgba(74,108,247,0.35);
+            z-index: 1;
+            opacity: 0;
+            animation: pulseWave 3s infinite ease-out;
+        }
+        .btn-container::after {
+            animation-delay: 1.5s;
+            background-color: rgba(255,77,109,0.35);
+        }
+
+        @keyframes pulseWave {
+            0%   { width: 100%; height: 100%; opacity: 0.7; }
+            100% { width: 200%; height: 300%; opacity: 0; }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 10;
+            animation: fadeUp 1.5s ease-out 1s both;
+        }
+        .footer strong {
+            color: var(--accent-2);
+            font-weight: 700;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .header-logos { padding: 0 20px; top: 15px; }
+            .logo { width: 100px; }
+            .btn-main { padding: 16px 35px; gap: 8px; }
+            .subtitle { letter-spacing: 1.5px; margin-bottom: 25px; }
+            .orb-1, .orb-2 { width: 220px; height: 220px; }
+            .languages { gap: 10px; margin-bottom: 30px; }
+            .lang { padding: 10px 12px; border-radius: 14px; }
+            .lang .flag { font-size: 1.5rem; }
+            .lang .name { font-size: 0.65rem; }
+            .lang .hello { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Orbes decorativos -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Header con logos (opcional) -->
+    <header class="header-logos">
+        <!-- <img src="./images/logo-izq.png" alt="Logo" class="logo"> -->
+        <!-- <img src="./images/logo-der.png" alt="Logo" class="logo"> -->
+    </header>
+
+    <!-- Contenido central -->
+    <main class="main-content">
+        <h1 class="title">Lingua<span>Hub</span></h1>
+        <p class="subtitle">Traduce · Conecta · Comunica</p>
+
+        <!-- Idiomas disponibles -->
+        <div class="languages">
+            <div class="lang">
+                <span class="flag">🇩🇪</span>
+                <span class="name">Alemán</span>
+                <span class="hello">Hallo</span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇮🇹</span>
+                <span class="name">Italiano</span>
+                <span class="hello">Ciao</span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇫🇷</span>
+                <span class="name">Francés</span>
+                <span class="hello">Bonjour</span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇷🇺</span>
+                <span class="name">Ruso</span>
+                <span class="hello">Привет</span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇵🇹</span>
+                <span class="name">Portugués</span>
+                <span class="hello">Olá</span>
+            </div>
+        </div>
+
+        <!-- Botón principal -->
+        <div class="btn-container">
+            <a href="translate.html"
+               class="btn-main"
+               rel="noopener noreferrer">
+                Abrir traductor
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        Proyecto <strong>LinguaHub</strong> · Girotto 2026
+    </footer>
+
+</body>
+</html>
